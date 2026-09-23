@@ -1,11 +1,24 @@
-function App() {
+import { Routes, Route } from "react-router-dom"
+import Sidebar from "./components/Sidebar"
+import Home from "./pages/Home"
+import CarpetasView from "./pages/CarpetasView"
+import TagsView from "./pages/TagsView"
+import NotaView from "./pages/NotaView"
+
+export default function App() {
   return (
-    <>
-      <div className="flex items-center justify-center gap-4 min-h-screen">
-        <h1 className="text-3xl font-bold underline text-amber-500">Corcho</h1>
-      </div>
-    </>
+    <div className="flex h-screen w-screen overflow-hidden bg-neutral-50 text-neutral-900">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/carpetas" element={<CarpetasView />} />
+          <Route path="/carpetas/:carpetaId" element={<CarpetasView />} />
+          <Route path="/tags" element={<TagsView />} />
+          <Route path="/tags/:tagId" element={<TagsView />} />
+          <Route path="/nota/:notaId" element={<NotaView />} />
+        </Routes>
+      </main>
+    </div>
   )
 }
-
-export default App
