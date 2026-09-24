@@ -1,6 +1,5 @@
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useLiveQuery } from "dexie-react-hooks"
-import { Link } from "react-router-dom"
 import { db } from "../lib/db"
 
 export default function CarpetasView() {
@@ -24,7 +23,7 @@ export default function CarpetasView() {
             <li key={carpeta.id}>
               <Link
                 to={`/carpetas/${carpeta.id}`}
-                className="text-sm font-medium text-neutral-700 hover:underline"
+                className="text-sm font-medium text-neutral-700 hover:underline dark:text-neutral-300"
               >
                 {carpeta.nombre}
               </Link>
@@ -45,7 +44,7 @@ export default function CarpetasView() {
           <Link
             key={nota.id}
             to={`/nota/${nota.id}`}
-            className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-neutral-400"
+            className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-600"
           >
             <p className="truncate text-sm font-medium">{nota.nombre}</p>
           </Link>

@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom"
 import { useLiveQuery } from "dexie-react-hooks"
-import type { Nota } from "../types/note"
 import { db } from "../lib/db"
+import type { Nota } from "../types/note"
 
 export default function TagsView() {
   const { tagId } = useParams()
@@ -14,6 +14,7 @@ export default function TagsView() {
         : Promise.resolve<Nota[]>([]),
     [tagId],
   )
+
   if (!tagId) {
     return (
       <div className="p-6">
@@ -23,7 +24,7 @@ export default function TagsView() {
             <Link
               key={tag.id}
               to={`/tags/${tag.id}`}
-              className="rounded-full border border-neutral-300 px-3 py-1 text-xs font-medium hover:bg-neutral-100"
+              className="rounded-full border border-neutral-300 px-3 py-1 text-xs font-medium hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
             >
               {tag.nombre}
             </Link>
@@ -43,7 +44,7 @@ export default function TagsView() {
           <Link
             key={nota.id}
             to={`/nota/${nota.id}`}
-            className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-neutral-400"
+            className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-600"
           >
             <p className="truncate text-sm font-medium">{nota.nombre}</p>
           </Link>

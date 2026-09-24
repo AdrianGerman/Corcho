@@ -1,14 +1,28 @@
 import { NavLink } from "react-router-dom"
+import { useTheme } from "../hooks/useTheme"
 
 const linkBase =
   "block rounded-lg px-3 py-2 text-sm font-medium transition-colors"
-const linkActive = "bg-neutral-900 text-white"
-const linkInactive = "text-neutral-600 hover:bg-neutral-200"
+const linkActive =
+  "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
+const linkInactive =
+  "text-neutral-600 hover:bg-neutral-200 dark:text-neutral-400 dark:hover:bg-neutral-800"
 
 export default function Sidebar() {
+  const { theme, toggleTheme } = useTheme()
+
   return (
-    <aside className="flex w-56 shrink-0 flex-col gap-1 border-r border-neutral-200 bg-white p-3">
-      <h1 className="mb-4 px-3 text-lg font-bold">Corcho</h1>
+    <aside className="flex w-56 shrink-0 flex-col gap-1 border-r border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="mb-4 flex items-center justify-between px-3">
+        <h1 className="text-lg font-bold">Corcho</h1>
+        <button
+          onClick={toggleTheme}
+          className="rounded-md p-1.5 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-800"
+          aria-label="Cambiar tema"
+        >
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
+      </div>
       <NavLink
         to="/"
         end

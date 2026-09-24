@@ -10,27 +10,31 @@ export default function NotaView() {
   )
 
   if (!nota) {
-    return <div className="p-6 text-sm text-neutral-400">Cargando...</div>
+    return (
+      <div className="p-6 text-sm text-neutral-400 dark:text-neutral-600">
+        Cargando...
+      </div>
+    )
   }
 
   return (
     <div className="flex h-full flex-col">
-      <header className="border-b border-neutral-200 p-4">
+      <header className="border-b border-neutral-200 p-4 dark:border-neutral-800">
         <h2 className="text-lg font-semibold">{nota.nombre}</h2>
       </header>
       <div className="flex-1 p-6">
         {nota.tipo === "pizarra" && (
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-neutral-400 dark:text-neutral-600">
             Aquí va el canvas de tldraw.
           </p>
         )}
         {nota.tipo === "lista" && (
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-neutral-400 dark:text-neutral-600">
             Aquí va el editor de lista ({nota.contenido.length} ítems).
           </p>
         )}
         {nota.tipo === "hoja" && (
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-neutral-400 dark:text-neutral-600">
             Aquí va el editor de texto (TipTap).
           </p>
         )}

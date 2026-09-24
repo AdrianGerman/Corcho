@@ -7,7 +7,7 @@ import NotaView from "./pages/NotaView"
 
 export default function App() {
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-neutral-50 text-neutral-900">
+    <div className="flex h-screen w-screen overflow-hidden bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
       <Sidebar />
       <main className="flex-1 overflow-y-auto">
         <Routes>
