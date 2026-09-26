@@ -35,6 +35,17 @@ export async function crearNota (params: {
   return nota
 }
 
+export async function renombrarNota (id: string, nombre: string) {
+  await db.notas.update(id, {
+    nombre: nombre.trim() || 'Sin título',
+    updatedAt: Date.now(),
+  })
+}
+
+export async function eliminarNota (id: string) {
+  await db.notas.delete(id)
+}
+
 export async function crearCarpeta (nombre: string) {
   const now = Date.now()
   const carpeta = {
@@ -45,6 +56,11 @@ export async function crearCarpeta (nombre: string) {
   }
   await db.carpetas.add(carpeta)
   return carpeta
+}
+
+export async function eliminarCarpeta (id: string) {
+  await db.notas.where('carpetaId').equals(id).modify({ carpetaId: null })
+  await db.carpetas.delete(id)
 }
 
 export async function crearTag (nombre: string) {
