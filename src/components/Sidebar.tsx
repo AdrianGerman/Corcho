@@ -1,5 +1,7 @@
+import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { useTheme } from "../hooks/useTheme"
+import NuevaNotaModal from "./NuevaNotaModal"
 
 const linkBase =
   "block rounded-lg px-3 py-2 text-sm font-medium transition-colors"
@@ -10,6 +12,7 @@ const linkInactive =
 
 export default function Sidebar() {
   const { theme, toggleTheme } = useTheme()
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
     <aside className="flex w-56 shrink-0 flex-col gap-1 border-r border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-900">
@@ -23,6 +26,14 @@ export default function Sidebar() {
           {theme === "dark" ? "☀️" : "🌙"}
         </button>
       </div>
+
+      <button
+        onClick={() => setModalOpen(true)}
+        className="mb-3 rounded-lg bg-neutral-900 px-3 py-2 text-sm font-semibold text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+      >
+        + Nueva nota
+      </button>
+
       <NavLink
         to="/"
         end
@@ -48,6 +59,8 @@ export default function Sidebar() {
       >
         Tags
       </NavLink>
+
+      <NuevaNotaModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </aside>
   )
 }
