@@ -1,51 +1,51 @@
-export type NoteType = 'pizarra' | 'lista' | 'hoja'
+export type NoteType = 'canvas' | 'list' | 'document'
 
-export interface Carpeta {
+export interface Folder {
   id: string
-  nombre: string
+  name: string
   createdAt: number
   updatedAt: number
 }
 
 export interface Tag {
   id: string
-  nombre: string
+  name: string
   color?: string
 }
 
-export interface ListaItem {
+export interface ListItem {
   id: string
-  texto: string
-  completado: boolean
-  orden: number
+  text: string
+  done: boolean
+  order: number
 }
 
-export type ContenidoPizarra = Record<string, unknown>
-export type ContenidoLista = ListaItem[]
-export type ContenidoHoja = string
+export type CanvasContent = Record<string, unknown>
+export type ListContent = ListItem[]
+export type DocumentContent = string
 
-interface NotaBase {
+interface NoteBase {
   id: string
-  nombre: string
-  carpetaId: string | null
+  name: string
+  folderId: string | null
   tagIds: string[]
   createdAt: number
   updatedAt: number
 }
 
-export interface NotaPizarra extends NotaBase {
-  tipo: 'pizarra'
-  contenido: ContenidoPizarra
+export interface CanvasNote extends NoteBase {
+  type: 'canvas'
+  content: CanvasContent
 }
 
-export interface NotaLista extends NotaBase {
-  tipo: 'lista'
-  contenido: ContenidoLista
+export interface ListNote extends NoteBase {
+  type: 'list'
+  content: ListContent
 }
 
-export interface NotaHoja extends NotaBase {
-  tipo: 'hoja'
-  contenido: ContenidoHoja
+export interface DocumentNote extends NoteBase {
+  type: 'document'
+  content: DocumentContent
 }
 
-export type Nota = NotaPizarra | NotaLista | NotaHoja
+export type Note = CanvasNote | ListNote | DocumentNote
