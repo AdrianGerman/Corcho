@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom"
-import Sidebar from "./components/Sidebar"
-import Home from "./pages/Home"
-import CarpetasView from "./pages/CarpetasView"
-import TagsView from "./pages/TagsView"
-import NotaView from "./pages/NotaView"
+import { Sidebar } from "./components/layout/Sidebar"
+import { HomePage } from "./pages/HomePage"
+import { FolderPage } from "./pages/FolderPage"
+import { TagPage } from "./pages/TagPage"
+import { NotePage } from "./pages/NotePage"
 
 export default function App() {
   return (
@@ -11,12 +11,12 @@ export default function App() {
       <Sidebar />
       <main className="flex-1 overflow-y-auto">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/carpetas" element={<CarpetasView />} />
-          <Route path="/carpetas/:carpetaId" element={<CarpetasView />} />
-          <Route path="/tags" element={<TagsView />} />
-          <Route path="/tags/:tagId" element={<TagsView />} />
-          <Route path="/nota/:notaId" element={<NotaView />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/folders" element={<FolderPage />} />
+          <Route path="/folders/:folderId" element={<FolderPage />} />
+          <Route path="/tags" element={<TagPage />} />
+          <Route path="/tags/:tagId" element={<TagPage />} />
+          <Route path="/note/:noteId" element={<NotePage />} />
         </Routes>
       </main>
     </div>

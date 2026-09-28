@@ -1,17 +1,18 @@
 import { useParams, Link } from "react-router-dom"
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
-import type { Nota } from "../types/note"
+import { NoteGrid } from "../components/note/NoteGrid"
+import type { Note } from "../types/note"
 
-export default function TagsView() {
+export function TagPage() {
   const { tagId } = useParams()
 
   const tags = useLiveQuery(() => db.tags.toArray(), [])
-  const notas = useLiveQuery(
+  const notes = useLiveQuery(
     () =>
       tagId
-        ? db.notas.where("tagIds").equals(tagId).toArray()
-        : Promise.resolve<Nota[]>([]),
+        ? db.notes.where("tagIds").equals(tagId).toArray()
+        : Promise.resolve<Note[]>([]),
     [tagId],
   )
 
@@ -26,7 +27,7 @@ export default function TagsView() {
               to={`/tags/${tag.id}`}
               className="rounded-full border border-neutral-300 px-3 py-1 text-xs font-medium hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
             >
-              {tag.nombre}
+              {tag.name}
             </Link>
           ))}
         </div>
@@ -37,19 +38,9 @@ export default function TagsView() {
   return (
     <div className="p-6">
       <h2 className="mb-3 text-lg font-semibold">
-        {tags?.find((t) => t.id === tagId)?.nombre ?? "Tag"}
+        {tags?.find((t) => t.id === tagId)?.name ?? "Tag"}
       </h2>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-        {notas?.map((nota) => (
-          <Link
-            key={nota.id}
-            to={`/nota/${nota.id}`}
-            className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-600"
-          >
-            <p className="truncate text-sm font-medium">{nota.nombre}</p>
-          </Link>
-        ))}
-      </div>
+      <NoteGrid notes={notes} emptyMessage="No hay notas con este tag." />
     </div>
   )
 }
