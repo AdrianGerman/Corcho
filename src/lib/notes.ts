@@ -42,6 +42,10 @@ export async function renameNote (id: string, name: string) {
   })
 }
 
+export async function updateNoteContent (id: string, content: Note['content']) {
+  await db.notes.update(id, { content, updatedAt: Date.now() })
+}
+
 export async function deleteNote (id: string) {
   await db.notes.delete(id)
 }

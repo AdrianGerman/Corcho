@@ -1,3 +1,5 @@
+import type { TLEditorSnapshot } from 'tldraw'
+
 export type NoteType = 'canvas' | 'list' | 'document'
 
 export interface Folder {
@@ -20,7 +22,7 @@ export interface ListItem {
   order: number
 }
 
-export type CanvasContent = Record<string, unknown>
+export type CanvasContent = TLEditorSnapshot | Record<string, never>
 export type ListContent = ListItem[]
 export type DocumentContent = string
 
