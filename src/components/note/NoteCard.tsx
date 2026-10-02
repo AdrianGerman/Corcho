@@ -10,7 +10,7 @@ interface NoteCardProps {
 export function NoteCard({ note, showType = false }: NoteCardProps) {
   return (
     <Link
-      to={`/nota/${note.id}`}
+      to={`/note/${note.id}`}
       className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-600"
     >
       <p className="truncate text-sm font-medium">{note.name}</p>
