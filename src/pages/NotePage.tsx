@@ -4,6 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
 import { renameNote, deleteNote } from "../lib/notes"
 import { Button } from "../components/ui/Button"
+import { NoteBody } from "../components/note/NoteBody"
 
 export function NotePage() {
   const { noteId } = useParams()
@@ -60,22 +61,8 @@ function NoteEditor({ noteId }: { noteId?: string }) {
           Eliminar
         </Button>
       </header>
-      <div className="flex-1 p-6">
-        {note.type === "canvas" && (
-          <p className="text-sm text-neutral-400 dark:text-neutral-600">
-            Aquí va el canvas de tldraw.
-          </p>
-        )}
-        {note.type === "list" && (
-          <p className="text-sm text-neutral-400 dark:text-neutral-600">
-            Aquí va el editor de lista ({note.content.length} ítems).
-          </p>
-        )}
-        {note.type === "document" && (
-          <p className="text-sm text-neutral-400 dark:text-neutral-600">
-            Aquí va el editor de texto (TipTap).
-          </p>
-        )}
+      <div className="relative min-h-0 flex-1">
+        <NoteBody note={note} />
       </div>
     </div>
   )
