@@ -1,5 +1,6 @@
 import type { Note } from "../../types/note"
 import { CanvasEditor } from "../editor/CanvasEditor"
+import { ListEditor } from "../editor/ListEditor"
 
 function EditorPlaceholder({ children }: { children: string }) {
   return (
@@ -14,11 +15,7 @@ export function NoteBody({ note }: { note: Note }) {
     case "canvas":
       return <CanvasEditor note={note} />
     case "list":
-      return (
-        <EditorPlaceholder>
-          {`Aquí va el editor de lista (${note.content.length} ítems).`}
-        </EditorPlaceholder>
-      )
+      return <ListEditor note={note} />
     case "document":
       return (
         <EditorPlaceholder>
