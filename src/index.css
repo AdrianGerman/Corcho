@@ -16,3 +16,31 @@ body,
 body {
   font-family: system-ui, "Segoe UI", Roboto, sans-serif;
 }
+
+.note-document h1 {
+  margin: 0.6em 0 0.3em;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.note-document h2 {
+  margin: 0.6em 0 0.3em;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+.note-document p {
+  margin: 0.4em 0;
+}
+.note-document ul,
+.note-document ol {
+  margin: 0.4em 0;
+  padding-left: 1.5em;
+}
+.note-document blockquote {
+  margin: 0.4em 0;
+  padding-left: 1em;
+  border-left: 3px solid var(--border);
+  opacity: 0.8;
+}
+.note-document :first-child {
+  margin-top: 0;
+}
