@@ -5,6 +5,7 @@ import { db } from "../lib/db"
 import { renameNote, deleteNote } from "../lib/notes"
 import { Button } from "../components/ui/Button"
 import { NoteBody } from "../components/note/NoteBody"
+import { NoteMetadataBar } from "../components/note/NoteMetadataBar"
 
 export function NotePage() {
   const { noteId } = useParams()
@@ -61,6 +62,11 @@ function NoteEditor({ noteId }: { noteId?: string }) {
           Eliminar
         </Button>
       </header>
+      <NoteMetadataBar
+        noteId={note.id}
+        folderId={note.folderId}
+        tagIds={note.tagIds}
+      />
       <div className="relative min-h-0 flex-1">
         <NoteBody note={note} />
       </div>
