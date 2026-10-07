@@ -1,9 +1,37 @@
 @import "tailwindcss";
+@import "./styles/animations.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   color-scheme: light dark;
+
+  --surface: #fdfbf7;
+  --surface-raised: #ffffff;
+  --surface-hover: #f5f1e9;
+  --border: #e7e0d2;
+  --text: #2b2620;
+  --text-muted: #8a8072;
+  --accent: #c2703a;
+  --accent-hover: #a85d2d;
+  --accent-soft: #f3e1d2;
+  --shadow-card:
+    0 1px 2px rgba(43, 38, 32, 0.06), 0 1px 1px rgba(43, 38, 32, 0.04);
+  --shadow-raised: 0 4px 16px rgba(43, 38, 32, 0.1);
+}
+
+.dark {
+  --surface: #17140f;
+  --surface-raised: #1f1b15;
+  --surface-hover: #241f18;
+  --border: #332c21;
+  --text: #ece6da;
+  --text-muted: #9a9080;
+  --accent: #e0935a;
+  --accent-hover: #ed9f66;
+  --accent-soft: #3a2a1c;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
+  --shadow-raised: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 html,
@@ -15,6 +43,8 @@ body,
 
 body {
   font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  background: var(--surface);
+  color: var(--text);
 }
 
 .note-document h1 {
