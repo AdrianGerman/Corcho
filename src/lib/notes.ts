@@ -46,6 +46,14 @@ export async function updateNoteContent (id: string, content: Note['content']) {
   await db.notes.update(id, { content, updatedAt: Date.now() })
 }
 
+export async function updateNoteFolder (id: string, folderId: string | null) {
+  await db.notes.update(id, { folderId, updatedAt: Date.now() })
+}
+
+export async function updateNoteTags (id: string, tagIds: string[]) {
+  await db.notes.update(id, { tagIds, updatedAt: Date.now() })
+}
+
 export async function deleteNote (id: string) {
   await db.notes.delete(id)
 }
