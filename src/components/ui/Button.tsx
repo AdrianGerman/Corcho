@@ -9,11 +9,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "rounded-lg px-4 py-2 text-sm font-medium bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200",
+    "rounded-lg px-4 py-2 text-sm font-medium bg-(--accent) text-white hover:bg-(--accent-hover)",
   secondary:
-    "rounded-lg px-4 py-2 text-sm font-medium border border-neutral-300 text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800",
+    "rounded-lg px-4 py-2 text-sm font-medium border border-(--border) text-(--text) hover:bg-(--surface-hover)",
   ghost:
-    "rounded-lg px-4 py-2 text-sm font-medium text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800",
+    "rounded-lg px-4 py-2 text-sm font-medium text-(--text-muted) hover:bg-(--surface-hover)",
   "link-danger": "text-xs font-medium text-red-500 hover:underline",
 }
 
@@ -25,7 +25,8 @@ export function Button({
   return (
     <button
       className={clsx(
-        "transition-colors disabled:opacity-50",
+        "transition-colors active:scale-95",
+        "disabled:opacity-50 disabled:active:scale-100",
         variantClasses[variant],
         className,
       )}

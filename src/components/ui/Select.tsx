@@ -17,7 +17,7 @@ export function Select({
       {label && (
         <label
           htmlFor={id}
-          className="mb-1 block text-xs font-medium text-neutral-500 dark:text-neutral-400"
+          className="mb-1 block text-xs font-medium text-(--text-muted)"
         >
           {label}
         </label>
@@ -25,7 +25,7 @@ export function Select({
       <select
         id={id}
         className={clsx(
-          "w-full rounded-lg border border-neutral-300 bg-transparent px-3 py-2 text-sm outline-none focus:border-neutral-500 dark:border-neutral-700",
+          "w-full rounded-lg border border-(--border) bg-transparent px-3 py-2 text-sm text-(--text) outline-none transition-colors focus:border-(--accent)",
           className,
         )}
         {...props}
