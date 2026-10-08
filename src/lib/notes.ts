@@ -83,3 +83,10 @@ export async function createTag (name: string) {
   await db.tags.add(tag)
   return tag
 }
+
+export async function deleteTag (id: string) {
+  await db.notes.where('tagIds').equals(id).modify((note) => {
+    note.tagIds = note.tagIds.filter((tagId) => tagId !== id)
+  })
+  await db.tags.delete(id)
+}
