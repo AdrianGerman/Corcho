@@ -1,5 +1,5 @@
 import type { NoteType } from "../../types/note"
-import { noteTypeLabels } from "../../lib/noteTypeLabels"
+import { noteTypeMeta, noteTypes } from "../../lib/noteTypeMeta"
 import { ToggleChip } from "../ui/ToggleChip"
 
 interface NoteTypeSelectProps {
@@ -7,25 +7,28 @@ interface NoteTypeSelectProps {
   onChange: (type: NoteType) => void
 }
 
-const noteTypes = Object.keys(noteTypeLabels) as NoteType[]
-
 export function NoteTypeSelect({ value, onChange }: NoteTypeSelectProps) {
   return (
     <div>
-      <span className="mb-1 block text-xs font-medium text-neutral-500 dark:text-neutral-400">
+      <span className="mb-1 block text-xs font-medium text-(--text-muted)">
         Tipo
       </span>
       <div className="flex gap-2">
-        {noteTypes.map((type) => (
-          <ToggleChip
-            key={type}
-            shape="block"
-            active={value === type}
-            onClick={() => onChange(type)}
-          >
-            {noteTypeLabels[type]}
-          </ToggleChip>
-        ))}
+        {noteTypes.map((type) => {
+          const { icon: Icon, label } = noteTypeMeta[type]
+          return (
+            <ToggleChip
+              key={type}
+              shape="block"
+              active={value === type}
+              onClick={() => onChange(type)}
+              className="flex items-center justify-center gap-2"
+            >
+              <Icon className="size-4" />
+              {label}
+            </ToggleChip>
+          )
+        })}
       </div>
     </div>
   )
