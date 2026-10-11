@@ -1,9 +1,11 @@
 import { useState, type FormEvent } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
+import { ArrowLeft } from "lucide-react"
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
 import { createFolder, deleteFolder } from "../lib/notes"
 import { NoteGrid } from "../components/note/NoteGrid"
+import { FolderGrid } from "../components/folder/FolderGrid"
 import { Button } from "../components/ui/Button"
 import { TextInput } from "../components/ui/TextInput"
 
@@ -38,7 +40,7 @@ export function FolderPage() {
   if (!folderId) {
     return (
       <div className="p-6">
-        <h2 className="mb-3 text-lg font-semibold">Carpetas</h2>
+        <h2 className="mb-3 text-lg font-semibold text-(--text)">Carpetas</h2>
 
         <form onSubmit={handleCreateFolder} className="mb-5 flex gap-2">
           <div className="flex-1">
@@ -51,31 +53,22 @@ export function FolderPage() {
           <Button type="submit">Crear</Button>
         </form>
 
-        <ul className="space-y-2">
-          {folders?.map((folder) => (
-            <li key={folder.id}>
-              <Link
-                to={`/folders/${folder.id}`}
-                className="text-sm font-medium text-neutral-700 hover:underline dark:text-neutral-300"
-              >
-                {folder.name}
-              </Link>
-            </li>
-          ))}
-          {!folders?.length && (
-            <p className="text-sm text-neutral-400 dark:text-neutral-600">
-              Aún no hay carpetas.
-            </p>
-          )}
-        </ul>
+        <FolderGrid folders={folders} emptyMessage="Aún no hay carpetas." />
       </div>
     )
   }
 
   return (
     <div className="p-6">
-      <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-lg font-semibold">
+      <Link
+        to="/folders"
+        className="mb-3 inline-flex items-center gap-1 text-xs font-medium text-(--text-muted) transition-colors hover:text-(--accent)"
+      >
+        <ArrowLeft className="size-3.5" />
+        Carpetas
+      </Link>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-(--text)">
           {folders?.find((f) => f.id === folderId)?.name ?? "Carpeta"}
         </h2>
         <Button variant="link-danger" onClick={handleDeleteFolder}>
