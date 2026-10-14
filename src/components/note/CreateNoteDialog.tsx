@@ -33,6 +33,11 @@ export function CreateNoteDialog({ isOpen, onClose }: CreateNoteDialogProps) {
     setTagIds([])
   }
 
+  function handleCancel() {
+    resetForm()
+    onClose()
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     const note = await createNote({
@@ -47,12 +52,12 @@ export function CreateNoteDialog({ isOpen, onClose }: CreateNoteDialogProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+    <div className="animate-fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md rounded-xl border border-neutral-200 bg-white p-5 shadow-lg dark:border-neutral-800 dark:bg-neutral-900"
+        className="animate-zoom-in w-full max-w-md rounded-2xl border border-(--border) bg-(--surface-raised) p-5 shadow-(--shadow-raised)"
       >
-        <h2 className="mb-4 text-lg font-semibold">Nueva nota</h2>
+        <h2 className="mb-4 text-lg font-semibold text-(--text)">Nueva nota</h2>
 
         <div className="mb-4">
           <TextInput
@@ -88,14 +93,7 @@ export function CreateNoteDialog({ isOpen, onClose }: CreateNoteDialogProps) {
         </div>
 
         <div className="flex justify-end gap-2">
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={() => {
-              resetForm()
-              onClose()
-            }}
-          >
+          <Button type="button" variant="ghost" onClick={handleCancel}>
             Cancelar
           </Button>
           <Button type="submit">Crear</Button>
