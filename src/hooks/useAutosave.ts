@@ -5,19 +5,32 @@ export function useAutosave<T> (
   save: (value: T) => void,
   delayMs = 500,
 ) {
-  const isFirstRender = useRef(true)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  )
+  const savedValueRef = useRef(value)
+  const latestValueRef = useRef(value)
+  const saveRef = useRef(save)
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false
-      return
+    saveRef.current = save
+    latestValueRef.current = value
+  })
+
+  useEffect(() => {
+    if (Object.is(value, savedValueRef.current)) return
+
+    const timeout = setTimeout(() => {
+      savedValueRef.current = value
+      saveRef.current(value)
+    }, delayMs)
+
+    return () => clearTimeout(timeout)
+  }, [value, delayMs])
+
+  useEffect(() => {
+    return () => {
+      if (!Object.is(latestValueRef.current, savedValueRef.current)) {
+        savedValueRef.current = latestValueRef.current
+        saveRef.current(latestValueRef.current)
+      }
     }
-    clearTimeout(timeoutRef.current)
-    timeoutRef.current = setTimeout(() => save(value), delayMs)
-    return () => clearTimeout(timeoutRef.current)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value])
+  }, [])
 }
