@@ -1,5 +1,6 @@
-import type { SelectHTMLAttributes } from "react"
+import { useId, type SelectHTMLAttributes } from "react"
 import clsx from "clsx"
+import { FieldLabel } from "./FieldLabel"
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
@@ -12,18 +13,14 @@ export function Select({
   children,
   ...props
 }: SelectProps) {
+  const generatedId = useId()
+  const selectId = id ?? generatedId
+
   return (
     <div>
-      {label && (
-        <label
-          htmlFor={id}
-          className="mb-1 block text-xs font-medium text-(--text-muted)"
-        >
-          {label}
-        </label>
-      )}
+      {label && <FieldLabel htmlFor={selectId}>{label}</FieldLabel>}
       <select
-        id={id}
+        id={selectId}
         className={clsx(
           "w-full rounded-lg border border-(--border) bg-transparent px-3 py-2 text-sm text-(--text) outline-none transition-colors focus:border-(--accent)",
           className,
