@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../../lib/db"
 import { createTag } from "../../lib/notes"
+import { FieldLabel } from "../ui/FieldLabel"
 import { ToggleChip } from "../ui/ToggleChip"
 import { TextInput } from "../ui/TextInput"
 import { Button } from "../ui/Button"
@@ -40,20 +41,20 @@ export function TagPicker({ selectedIds, onChange }: TagPickerProps) {
 
   return (
     <div>
-      <span className="mb-1 block text-xs font-medium text-neutral-500 dark:text-neutral-400">
-        Tags
-      </span>
-      <div className="mb-2 flex flex-wrap gap-2">
-        {existingTags?.map((tag) => (
-          <ToggleChip
-            key={tag.id}
-            active={selectedIds.includes(tag.id)}
-            onClick={() => toggleTag(tag.id)}
-          >
-            {tag.name}
-          </ToggleChip>
-        ))}
-      </div>
+      <FieldLabel>Tags</FieldLabel>
+      {!!existingTags?.length && (
+        <div className="mb-2 flex flex-wrap gap-2">
+          {existingTags.map((tag) => (
+            <ToggleChip
+              key={tag.id}
+              active={selectedIds.includes(tag.id)}
+              onClick={() => toggleTag(tag.id)}
+            >
+              {tag.name}
+            </ToggleChip>
+          ))}
+        </div>
+      )}
       <div className="flex gap-2">
         <div className="flex-1">
           <TextInput

@@ -18,7 +18,7 @@ export function NoteMetadataBar({
   const folders = useLiveQuery(() => db.folders.toArray(), [])
 
   return (
-    <div className="flex flex-wrap items-start gap-4 border-b border-neutral-200 p-4 dark:border-neutral-800">
+    <div className="flex flex-wrap items-start gap-4 border-b border-(--border) bg-(--surface-raised) px-6 py-3">
       <div className="w-48">
         <Select
           label="Carpeta"
@@ -33,7 +33,7 @@ export function NoteMetadataBar({
           ))}
         </Select>
       </div>
-      <div className="flex-1">
+      <div className="min-w-64 flex-1">
         <TagPicker
           selectedIds={tagIds}
           onChange={(ids) => updateNoteTags(noteId, ids)}
