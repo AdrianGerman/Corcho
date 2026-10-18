@@ -72,7 +72,7 @@ export function ListEditor({ note }: ListEditorProps) {
   }
 
   return (
-    <div className="mx-auto h-full max-w-2xl overflow-y-auto p-6">
+    <div className="h-full overflow-y-auto p-6">
       <div className="mb-4 flex gap-2">
         <div className="flex-1">
           <TextInput
@@ -112,9 +112,7 @@ export function ListEditor({ note }: ListEditorProps) {
               />
             ))}
             {!items.length && (
-              <p className="text-sm text-neutral-400 dark:text-neutral-600">
-                Sin ítems todavía.
-              </p>
+              <p className="text-sm text-(--text-muted)">Sin ítems todavía.</p>
             )}
           </div>
         </SortableContext>
