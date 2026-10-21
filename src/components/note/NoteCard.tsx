@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import { Link } from "react-router-dom"
 import clsx from "clsx"
 import type { Note } from "../../types/note"
@@ -6,14 +7,16 @@ import { formatShortDate } from "../../lib/formatDate"
 
 interface NoteCardProps {
   note: Note
+  style?: CSSProperties
 }
 
-export function NoteCard({ note }: NoteCardProps) {
+export function NoteCard({ note, style }: NoteCardProps) {
   const { icon: Icon, label, previewClass, iconClass } = noteTypeMeta[note.type]
 
   return (
     <Link
       to={`/note/${note.id}`}
+      style={style}
       className="group animate-fade-in-up overflow-hidden rounded-xl border border-(--border) bg-(--surface-raised) shadow-(--shadow-card) transition-all hover:-translate-y-0.5 hover:shadow-(--shadow-raised)"
     >
       <div
@@ -22,7 +25,7 @@ export function NoteCard({ note }: NoteCardProps) {
         <Icon
           strokeWidth={1.5}
           className={clsx(
-            "size-10 transition-transform group-hover:scale-110",
+            "size-10 transition-transform group-hover:scale-110 group-hover:animate-wiggle",
             iconClass,
           )}
         />

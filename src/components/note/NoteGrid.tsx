@@ -1,4 +1,5 @@
 import type { Note } from "../../types/note"
+import { staggerStyle } from "../../lib/stagger"
 import { NoteCard } from "./NoteCard"
 
 interface NoteGridProps {
@@ -13,8 +14,8 @@ export function NoteGrid({ notes, emptyMessage }: NoteGridProps) {
 
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      {notes.map((note) => (
-        <NoteCard key={note.id} note={note} />
+      {notes.map((note, index) => (
+        <NoteCard key={note.id} note={note} style={staggerStyle(index)} />
       ))}
     </div>
   )
