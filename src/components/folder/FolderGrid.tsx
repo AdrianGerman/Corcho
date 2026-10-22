@@ -1,4 +1,5 @@
 import type { Folder } from "../../types/note"
+import { staggerStyle } from "../../lib/stagger"
 import { FolderCard } from "./FolderCard"
 
 interface FolderGridProps {
@@ -13,8 +14,12 @@ export function FolderGrid({ folders, emptyMessage }: FolderGridProps) {
 
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {folders.map((folder) => (
-        <FolderCard key={folder.id} folder={folder} />
+      {folders.map((folder, index) => (
+        <FolderCard
+          key={folder.id}
+          folder={folder}
+          style={staggerStyle(index)}
+        />
       ))}
     </div>
   )
