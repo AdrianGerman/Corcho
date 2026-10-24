@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react"
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
 import { createFolder, deleteFolder } from "../lib/notes"
+import { useToast } from "../hooks/useToast"
 import { NoteGrid } from "../components/note/NoteGrid"
 import { FolderGrid } from "../components/folder/FolderGrid"
 import { Button } from "../components/ui/Button"
@@ -12,6 +13,7 @@ import { TextInput } from "../components/ui/TextInput"
 export function FolderPage() {
   const { folderId } = useParams()
   const navigate = useNavigate()
+  const { showToast } = useToast()
   const [newFolderName, setNewFolderName] = useState("")
 
   const folders = useLiveQuery(() => db.folders.toArray(), [])
@@ -28,12 +30,14 @@ export function FolderPage() {
     if (!newFolderName.trim()) return
     await createFolder(newFolderName)
     setNewFolderName("")
+    showToast("Carpeta creada")
   }
 
   async function handleDeleteFolder() {
     if (!folderId) return
     if (!confirm("¿Eliminar esta carpeta? Las notas no se borrarán.")) return
     await deleteFolder(folderId)
+    showToast("Carpeta eliminada", "danger")
     navigate("/folders")
   }
 

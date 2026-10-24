@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { renameNote, deleteNote } from "../../lib/notes"
+import { useToast } from "../../hooks/useToast"
 import { Button } from "../ui/Button"
 
 interface NoteHeaderProps {
@@ -10,6 +11,7 @@ interface NoteHeaderProps {
 
 export function NoteHeader({ noteId, name }: NoteHeaderProps) {
   const navigate = useNavigate()
+  const { showToast } = useToast()
 
   const [draftName, setDraftName] = useState<string | null>(null)
 
@@ -24,6 +26,7 @@ export function NoteHeader({ noteId, name }: NoteHeaderProps) {
     if (!confirm("¿Eliminar esta nota? Esta acción no se puede deshacer."))
       return
     await deleteNote(noteId)
+    showToast("Nota eliminada", "danger")
     navigate("/")
   }
 

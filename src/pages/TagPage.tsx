@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
 import { createTag, deleteTag } from "../lib/notes"
+import { useToast } from "../hooks/useToast"
 import { NoteGrid } from "../components/note/NoteGrid"
 import { TagCard } from "../components/tag/TagCard"
 import { Button } from "../components/ui/Button"
@@ -12,6 +13,7 @@ import type { Note } from "../types/note"
 export function TagPage() {
   const { tagId } = useParams()
   const navigate = useNavigate()
+  const { showToast } = useToast()
 
   const tags = useLiveQuery(() => db.tags.toArray(), [])
   const notes = useLiveQuery(
@@ -29,11 +31,13 @@ export function TagPage() {
     if (!newTagName.trim()) return
     await createTag(newTagName)
     setNewTagName("")
+    showToast("Tag creado")
   }
 
   async function handleDeleteTag(id: string, redirectAfter = false) {
     if (!confirm("¿Eliminar este tag? Se quitará de todas las notas.")) return
     await deleteTag(id)
+    showToast("Tag eliminado", "danger")
     if (redirectAfter) navigate("/tags")
   }
 

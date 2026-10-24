@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../../lib/db"
 import { createNote } from "../../lib/notes"
+import { useToast } from "../../hooks/useToast"
 import type { NoteType } from "../../types/note"
 import { Button } from "../ui/Button"
 import { TextInput } from "../ui/TextInput"
@@ -17,6 +18,7 @@ interface CreateNoteDialogProps {
 
 export function CreateNoteDialog({ isOpen, onClose }: CreateNoteDialogProps) {
   const navigate = useNavigate()
+  const { showToast } = useToast()
   const folders = useLiveQuery(() => db.folders.toArray(), [])
 
   const [name, setName] = useState("")
@@ -48,6 +50,7 @@ export function CreateNoteDialog({ isOpen, onClose }: CreateNoteDialogProps) {
     })
     resetForm()
     onClose()
+    showToast("Nota creada")
     navigate(`/note/${note.id}`)
   }
 
