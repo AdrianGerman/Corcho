@@ -27,7 +27,7 @@ export function SidebarLink({
         sidebarItemClasses(isActive ? "active" : "idle")
       }
     >
-      <Icon className="size-5 shrink-0" />
+      <Icon className="size-5 shrink-0 transition-transform group-hover:scale-110" />
       <SidebarItemLabel collapsed={collapsed}>{label}</SidebarItemLabel>
     </NavLink>
   )

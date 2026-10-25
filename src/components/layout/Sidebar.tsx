@@ -40,6 +40,7 @@ export function Sidebar() {
           label="Nueva nota"
           collapsed={collapsed}
           tone="primary"
+          iconClassName="group-hover:rotate-90"
           className="mb-3"
           onClick={() => setDialogOpen(true)}
         />

@@ -10,7 +10,7 @@ const toneClasses: Record<SidebarItemTone, string> = {
 
 export function sidebarItemClasses (tone: SidebarItemTone) {
   return clsx(
-    'flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-all',
+    'group flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-all',
     toneClasses[tone],
   )
 }

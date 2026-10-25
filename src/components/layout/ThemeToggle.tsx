@@ -11,6 +11,9 @@ export function ThemeToggle({ collapsed }: { collapsed: boolean }) {
       icon={isDark ? Sun : Moon}
       label={isDark ? "Modo claro" : "Modo oscuro"}
       collapsed={collapsed}
+      iconClassName={
+        isDark ? "group-hover:rotate-45" : "group-hover:-rotate-12"
+      }
       onClick={toggleTheme}
     />
   )

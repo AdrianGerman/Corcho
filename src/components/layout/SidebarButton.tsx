@@ -15,6 +15,7 @@ interface SidebarButtonProps extends Omit<
   icon: LucideIcon
   collapsed: boolean
   tone?: Exclude<SidebarItemTone, "active">
+  iconClassName?: string
 }
 
 export function SidebarButton({
@@ -22,6 +23,7 @@ export function SidebarButton({
   icon: Icon,
   collapsed,
   tone = "idle",
+  iconClassName,
   className,
   ...props
 }: SidebarButtonProps) {
@@ -32,7 +34,12 @@ export function SidebarButton({
       className={clsx(sidebarItemClasses(tone), className)}
       {...props}
     >
-      <Icon className="size-5 shrink-0" />
+      <Icon
+        className={clsx(
+          "size-5 shrink-0 transition-transform group-hover:scale-110",
+          iconClassName,
+        )}
+      />
       <SidebarItemLabel collapsed={collapsed}>{label}</SidebarItemLabel>
     </button>
   )
