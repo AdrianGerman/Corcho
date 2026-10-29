@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import clsx from "clsx"
 import {
   Folder,
@@ -6,10 +6,13 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Plus,
+  Search,
   Tag,
 } from "lucide-react"
+import { useGlobalShortcut } from "../../hooks/useGlobalShortcut"
 import { useSidebarCollapsed } from "../../hooks/useSidebarCollapsed"
 import { CreateNoteDialog } from "../note/CreateNoteDialog"
+import { SearchDialog } from "../search/SearchDialog"
 import { SidebarBrand } from "./SidebarBrand"
 import { SidebarButton } from "./SidebarButton"
 import { SidebarLink } from "./SidebarLink"
@@ -23,7 +26,11 @@ const navItems = [
 
 export function Sidebar() {
   const { collapsed, toggleCollapsed } = useSidebarCollapsed()
-  const [dialogOpen, setDialogOpen] = useState(false)
+  const [createDialogOpen, setCreateDialogOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+
+  const openSearch = useCallback(() => setSearchOpen(true), [])
+  useGlobalShortcut("k", openSearch)
 
   return (
     <>
@@ -41,8 +48,15 @@ export function Sidebar() {
           collapsed={collapsed}
           tone="primary"
           iconClassName="group-hover:rotate-90"
+          className="mb-1"
+          onClick={() => setCreateDialogOpen(true)}
+        />
+        <SidebarButton
+          icon={Search}
+          label="Buscar"
+          collapsed={collapsed}
           className="mb-3"
-          onClick={() => setDialogOpen(true)}
+          onClick={openSearch}
         />
 
         <nav className="flex flex-col gap-1">
@@ -63,9 +77,10 @@ export function Sidebar() {
       </aside>
 
       <CreateNoteDialog
-        isOpen={dialogOpen}
-        onClose={() => setDialogOpen(false)}
+        isOpen={createDialogOpen}
+        onClose={() => setCreateDialogOpen(false)}
       />
+      <SearchDialog isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )
 }
