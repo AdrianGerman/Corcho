@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage"
 import { FolderPage } from "./pages/FolderPage"
 import { TagPage } from "./pages/TagPage"
 import { NotePage } from "./pages/NotePage"
+import { BackupPage } from "./pages/BackupPage"
 
 export default function App() {
   const location = useLocation()
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/tags" element={<TagPage />} />
             <Route path="/tags/:tagId" element={<TagPage />} />
             <Route path="/note/:noteId" element={<NotePage />} />
+            <Route path="/backup" element={<BackupPage />} />
           </Routes>
         </div>
       </main>

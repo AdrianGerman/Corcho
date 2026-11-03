@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react"
 import clsx from "clsx"
 import {
+  DatabaseBackup,
   Folder,
   House,
   PanelLeftClose,
@@ -66,6 +67,12 @@ export function Sidebar() {
         </nav>
 
         <div className="mt-auto flex flex-col gap-1">
+          <SidebarLink
+            to="/backup"
+            label="Respaldo"
+            icon={DatabaseBackup}
+            collapsed={collapsed}
+          />
           <ThemeToggle collapsed={collapsed} />
           <SidebarButton
             icon={collapsed ? PanelLeftOpen : PanelLeftClose}
