@@ -1,38 +1,40 @@
 import { useMemo } from "react"
-import clsx from "clsx"
 import type { Note } from "../../types/note"
-import { noteTypeMeta } from "../../lib/noteTypeMeta"
 import { getNoteText } from "../../lib/noteText"
 import { DocumentPreview } from "./DocumentPreview"
 import { ListPreview } from "./ListPreview"
+import { PreviewPlaceholder } from "./PreviewPlaceholder"
 
 interface NotePreviewProps {
   note: Note
 }
 
-export function NotePreview({ note }: NotePreviewProps) {
-  const { icon: Icon, previewClass, iconClass } = noteTypeMeta[note.type]
-
-  const text = useMemo(() => getNoteText(note), [note])
-  const isEmpty = note.type === "list" ? note.content.length === 0 : !text
-
-  return (
-    <div className={clsx("h-28 overflow-hidden", previewClass)}>
-      {isEmpty ? (
-        <div className="flex h-full items-center justify-center">
-          <Icon
-            strokeWidth={1.5}
-            className={clsx(
-              "size-10 transition-transform group-hover:scale-110 group-hover:animate-wiggle",
-              iconClass,
-            )}
-          />
-        </div>
-      ) : note.type === "list" ? (
+function PreviewContent({ note, text }: { note: Note; text: string }) {
+  switch (note.type) {
+    case "canvas":
+      return <PreviewPlaceholder type="canvas" grid />
+    case "list":
+      return note.content.length ? (
         <ListPreview items={note.content} />
       ) : (
+        <PreviewPlaceholder type="list" />
+      )
+    case "document":
+      return text ? (
         <DocumentPreview text={text} />
-      )}
+      ) : (
+        <PreviewPlaceholder type="document" />
+      )
+  }
+}
+
+export function NotePreview({ note }: NotePreviewProps) {
+  const text = useMemo(() => getNoteText(note), [note])
+
+  return (
+    <div className="relative h-28 overflow-hidden bg-(--surface-hover)">
+      <PreviewContent note={note} text={text} />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-linear-to-t from-(--surface-hover) to-transparent" />
     </div>
   )
 }

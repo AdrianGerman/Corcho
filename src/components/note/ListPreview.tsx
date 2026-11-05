@@ -13,11 +13,11 @@ export function ListPreview({ items }: ListPreviewProps) {
   const hiddenCount = items.length - visibleItems.length
 
   return (
-    <ul className="flex flex-col gap-1.5 px-3 py-2.5">
+    <ul className="flex flex-col gap-1.5 px-3 pt-3">
       {visibleItems.map((item) => (
         <li key={item.id} className="flex items-center gap-2 text-xs">
           {item.done ? (
-            <SquareCheck className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-300" />
+            <SquareCheck className="size-3.5 shrink-0 text-(--accent)" />
           ) : (
             <Square className="size-3.5 shrink-0 text-(--text-muted)" />
           )}
