@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 import clsx from "clsx"
 import type { NoteSearchResult } from "../../lib/searchNotes"
 import { noteTypeMeta } from "../../lib/noteTypeMeta"
+import { NoteTypeIcon } from "../note/NoteTypeIcon"
 
 interface SearchResultItemProps {
   result: NoteSearchResult
@@ -17,7 +18,7 @@ export function SearchResultItem({
   onHover,
 }: SearchResultItemProps) {
   const { note, snippet } = result
-  const { icon: Icon, label, previewClass, iconClass } = noteTypeMeta[note.type]
+  const { label } = noteTypeMeta[note.type]
   const ref = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
@@ -35,14 +36,7 @@ export function SearchResultItem({
         active ? "bg-(--accent-soft)" : "hover:bg-(--surface-hover)",
       )}
     >
-      <span
-        className={clsx(
-          "flex size-9 shrink-0 items-center justify-center rounded-lg",
-          previewClass,
-        )}
-      >
-        <Icon className={clsx("size-4", iconClass)} />
-      </span>
+      <NoteTypeIcon type={note.type} className="size-9" />
       <span className="min-w-0">
         <span className="block truncate text-sm font-medium text-(--text)">
           {note.name}
