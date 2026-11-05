@@ -70,6 +70,10 @@ export async function createFolder (name: string) {
   return folder
 }
 
+export async function renameFolder (id: string, name: string) {
+  await db.folders.update(id, { name: name.trim(), updatedAt: Date.now() })
+}
+
 export async function deleteFolder (id: string) {
   await db.notes.where('folderId').equals(id).modify({ folderId: null })
   await db.folders.delete(id)
@@ -82,6 +86,10 @@ export async function createTag (name: string) {
   }
   await db.tags.add(tag)
   return tag
+}
+
+export async function renameTag (id: string, name: string) {
+  await db.tags.update(id, { name: name.trim() })
 }
 
 export async function deleteTag (id: string) {
