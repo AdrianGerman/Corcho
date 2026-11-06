@@ -1,8 +1,8 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { renameNote, deleteNote } from "../../lib/notes"
 import { useToast } from "../../hooks/useToast"
 import { Button } from "../ui/Button"
+import { EditableTitle } from "../ui/EditableTitle"
 
 interface NoteHeaderProps {
   noteId: string
@@ -12,15 +12,6 @@ interface NoteHeaderProps {
 export function NoteHeader({ noteId, name }: NoteHeaderProps) {
   const navigate = useNavigate()
   const { showToast } = useToast()
-
-  const [draftName, setDraftName] = useState<string | null>(null)
-
-  async function handleBlur() {
-    if (draftName === null) return
-    const trimmed = draftName.trim() || "Sin título"
-    setDraftName(trimmed)
-    if (trimmed !== name) await renameNote(noteId, trimmed)
-  }
 
   async function handleDelete() {
     if (!confirm("¿Eliminar esta nota? Esta acción no se puede deshacer."))
@@ -32,15 +23,11 @@ export function NoteHeader({ noteId, name }: NoteHeaderProps) {
 
   return (
     <header className="flex items-center justify-between gap-4 border-b border-(--border) bg-(--surface-raised) px-6 py-4">
-      <input
-        value={draftName ?? name}
-        onChange={(e) => setDraftName(e.target.value)}
-        onBlur={handleBlur}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") e.currentTarget.blur()
-        }}
+      <EditableTitle
+        value={name}
+        onSave={(newName) => renameNote(noteId, newName)}
         placeholder="Sin título"
-        className="min-w-0 flex-1 bg-transparent text-xl font-semibold text-(--text) outline-none placeholder:text-(--text-muted)"
+        className="flex-1 text-xl"
       />
       <Button variant="link-danger" className="shrink-0" onClick={handleDelete}>
         Eliminar

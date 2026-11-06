@@ -3,11 +3,12 @@ import { useParams, Link, useNavigate } from "react-router-dom"
 import { ArrowLeft } from "lucide-react"
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
-import { createFolder, deleteFolder } from "../lib/notes"
+import { createFolder, deleteFolder, renameFolder } from "../lib/notes"
 import { useToast } from "../hooks/useToast"
 import { NoteGrid } from "../components/note/NoteGrid"
 import { FolderGrid } from "../components/folder/FolderGrid"
 import { Button } from "../components/ui/Button"
+import { EditableTitle } from "../components/ui/EditableTitle"
 import { TextInput } from "../components/ui/TextInput"
 
 export function FolderPage() {
@@ -62,6 +63,8 @@ export function FolderPage() {
     )
   }
 
+  const folder = folders?.find((f) => f.id === folderId)
+
   return (
     <div className="p-6">
       <Link
@@ -71,10 +74,14 @@ export function FolderPage() {
         <ArrowLeft className="size-3.5" />
         Carpetas
       </Link>
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-(--text)">
-          {folders?.find((f) => f.id === folderId)?.name ?? "Carpeta"}
-        </h2>
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <EditableTitle
+          key={folderId}
+          value={folder?.name ?? ""}
+          onSave={(name) => renameFolder(folderId, name)}
+          placeholder="Carpeta"
+          className="flex-1 text-lg"
+        />
         <Button variant="link-danger" onClick={handleDeleteFolder}>
           Eliminar carpeta
         </Button>
