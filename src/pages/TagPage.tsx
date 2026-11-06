@@ -2,11 +2,12 @@ import { useState, type FormEvent } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
-import { createTag, deleteTag } from "../lib/notes"
+import { createTag, deleteTag, renameTag } from "../lib/notes"
 import { useToast } from "../hooks/useToast"
 import { NoteGrid } from "../components/note/NoteGrid"
 import { TagCard } from "../components/tag/TagCard"
 import { Button } from "../components/ui/Button"
+import { EditableTitle } from "../components/ui/EditableTitle"
 import { TextInput } from "../components/ui/TextInput"
 import type { Note } from "../types/note"
 
@@ -74,12 +75,18 @@ export function TagPage() {
     )
   }
 
+  const tag = tags?.find((t) => t.id === tagId)
+
   return (
     <div className="p-6">
-      <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-(--text)">
-          {tags?.find((t) => t.id === tagId)?.name ?? "Tag"}
-        </h2>
+      <div className="mb-3 flex items-center justify-between gap-4">
+        <EditableTitle
+          key={tagId}
+          value={tag?.name ?? ""}
+          onSave={(name) => renameTag(tagId, name)}
+          placeholder="Tag"
+          className="flex-1 text-lg"
+        />
         <Button
           variant="link-danger"
           onClick={() => handleDeleteTag(tagId, true)}
