@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom"
 import { Sidebar } from "./components/layout/Sidebar"
+import { MoveNoteBar } from "./components/note/MoveNoteBar"
 import { HomePage } from "./pages/HomePage"
 import { FolderPage } from "./pages/FolderPage"
 import { TagPage } from "./pages/TagPage"
@@ -25,6 +26,7 @@ export default function App() {
           </Routes>
         </div>
       </main>
+      <MoveNoteBar />
     </div>
   )
 }
