@@ -5,7 +5,7 @@ import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
 import { createFolder, deleteFolder, renameFolder } from "../lib/notes"
 import { useToast } from "../hooks/useToast"
-import { NoteGrid } from "../components/note/NoteGrid"
+import { SortedNoteGrid } from "../components/note/SortedNoteGrid"
 import { FolderGrid } from "../components/folder/FolderGrid"
 import { Button } from "../components/ui/Button"
 import { EditableTitle } from "../components/ui/EditableTitle"
@@ -86,7 +86,10 @@ export function FolderPage() {
           Eliminar carpeta
         </Button>
       </div>
-      <NoteGrid notes={notes} emptyMessage="Esta carpeta no tiene notas." />
+      <SortedNoteGrid
+        notes={notes}
+        emptyMessage="Esta carpeta no tiene notas."
+      />
     </div>
   )
 }
