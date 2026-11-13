@@ -4,7 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "../lib/db"
 import { createTag, deleteTag, renameTag } from "../lib/notes"
 import { useToast } from "../hooks/useToast"
-import { NoteGrid } from "../components/note/NoteGrid"
+import { SortedNoteGrid } from "../components/note/SortedNoteGrid"
 import { TagCard } from "../components/tag/TagCard"
 import { Button } from "../components/ui/Button"
 import { EditableTitle } from "../components/ui/EditableTitle"
@@ -94,7 +94,7 @@ export function TagPage() {
           Eliminar tag
         </Button>
       </div>
-      <NoteGrid notes={notes} emptyMessage="No hay notas con este tag." />
+      <SortedNoteGrid notes={notes} emptyMessage="No hay notas con este tag." />
     </div>
   )
 }
