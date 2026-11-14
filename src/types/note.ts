@@ -38,6 +38,7 @@ interface NoteBase {
 export interface CanvasNote extends NoteBase {
   type: 'canvas'
   content: CanvasContent
+  thumbnail?: string
 }
 
 export interface ListNote extends NoteBase {
