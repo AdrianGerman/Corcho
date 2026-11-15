@@ -3,6 +3,7 @@ import { Tldraw, loadSnapshot, type Editor } from "tldraw"
 import "tldraw/tldraw.css"
 import type { CanvasNote } from "../../types/note"
 import { startCanvasAutosave } from "../../lib/canvasAutosave"
+import { startCanvasThumbnailSync } from "../../lib/canvasThumbnailSync"
 import { syncCanvasTheme } from "../../lib/canvasTheme"
 
 interface CanvasEditorProps {
@@ -11,6 +12,7 @@ interface CanvasEditorProps {
 
 export function CanvasEditor({ note }: CanvasEditorProps) {
   const [initialContent] = useState(note.content)
+  const [hadThumbnail] = useState(Boolean(note.thumbnail))
   const noteId = note.id
 
   const handleMount = useCallback(
@@ -22,13 +24,19 @@ export function CanvasEditor({ note }: CanvasEditorProps) {
 
       const stopThemeSync = syncCanvasTheme(editor)
       const stopAutosave = startCanvasAutosave(editor, noteId)
+      const stopThumbnailSync = startCanvasThumbnailSync(
+        editor,
+        noteId,
+        hadThumbnail,
+      )
 
       return () => {
         stopThemeSync()
         stopAutosave()
+        stopThumbnailSync()
       }
     },
-    [initialContent, noteId],
+    [initialContent, hadThumbnail, noteId],
   )
 
   return (
