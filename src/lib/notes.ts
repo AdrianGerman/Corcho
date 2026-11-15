@@ -46,6 +46,20 @@ export async function updateNoteContent (id: string, content: Note['content']) {
   await db.notes.update(id, { content, updatedAt: Date.now() })
 }
 
+export async function updateCanvasThumbnail (
+  id: string,
+  thumbnail: string | null,
+) {
+  await db.notes
+    .where('id')
+    .equals(id)
+    .modify((note) => {
+      if (note.type !== 'canvas') return
+      if (thumbnail) note.thumbnail = thumbnail
+      else delete note.thumbnail
+    })
+}
+
 export async function updateNoteFolder (id: string, folderId: string | null) {
   await db.notes.update(id, { folderId, updatedAt: Date.now() })
 }
