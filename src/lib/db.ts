@@ -1,10 +1,12 @@
 import Dexie, { type Table } from 'dexie'
 import type { Note, Folder, Tag } from '../types/note'
+import type { TrashedNote } from '../types/trash'
 
 export class CorchoDatabase extends Dexie {
   notes!: Table<Note, string>
   folders!: Table<Folder, string>
   tags!: Table<Tag, string>
+  trash!: Table<TrashedNote, string>
 
   constructor () {
     super('corcho-db')
@@ -12,6 +14,9 @@ export class CorchoDatabase extends Dexie {
       notes: 'id, type, folderId, name, updatedAt, *tagIds',
       folders: 'id, name',
       tags: 'id, name',
+    })
+    this.version(2).stores({
+      trash: 'id, deletedAt',
     })
   }
 }
