@@ -68,10 +68,6 @@ export async function updateNoteTags (id: string, tagIds: string[]) {
   await db.notes.update(id, { tagIds, updatedAt: Date.now() })
 }
 
-export async function deleteNote (id: string) {
-  await db.notes.delete(id)
-}
-
 export async function createFolder (name: string) {
   const now = Date.now()
   const folder = {
