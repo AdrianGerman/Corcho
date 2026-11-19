@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { renameNote, deleteNote } from "../../lib/notes"
+import { renameNote } from "../../lib/notes"
+import { moveNoteToTrash } from "../../lib/trash"
 import { useToast } from "../../hooks/useToast"
 import { Button } from "../ui/Button"
 import { EditableTitle } from "../ui/EditableTitle"
@@ -14,10 +15,8 @@ export function NoteHeader({ noteId, name }: NoteHeaderProps) {
   const { showToast } = useToast()
 
   async function handleDelete() {
-    if (!confirm("¿Eliminar esta nota? Esta acción no se puede deshacer."))
-      return
-    await deleteNote(noteId)
-    showToast("Nota eliminada", "danger")
+    await moveNoteToTrash(noteId)
+    showToast("Nota movida a la papelera", "danger")
     navigate("/")
   }
 
