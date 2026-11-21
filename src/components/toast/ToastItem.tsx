@@ -1,10 +1,11 @@
 import clsx from "clsx"
 import { CircleCheck, Trash2, X, type LucideIcon } from "lucide-react"
-import type { ToastTone } from "./ToastContext"
+import type { ToastAction, ToastTone } from "./ToastContext"
 
 interface ToastItemProps {
   message: string
   tone: ToastTone
+  action?: ToastAction
   onDismiss: () => void
 }
 
@@ -13,8 +14,18 @@ const toneMeta: Record<ToastTone, { icon: LucideIcon; iconClass: string }> = {
   danger: { icon: Trash2, iconClass: "text-red-500" },
 }
 
-export function ToastItem({ message, tone, onDismiss }: ToastItemProps) {
+export function ToastItem({
+  message,
+  tone,
+  action,
+  onDismiss,
+}: ToastItemProps) {
   const { icon: Icon, iconClass } = toneMeta[tone]
+
+  function handleAction() {
+    action?.onClick()
+    onDismiss()
+  }
 
   return (
     <div
@@ -23,11 +34,20 @@ export function ToastItem({ message, tone, onDismiss }: ToastItemProps) {
     >
       <Icon className={clsx("size-4 shrink-0", iconClass)} />
       <span>{message}</span>
+      {action && (
+        <button
+          type="button"
+          onClick={handleAction}
+          className="rounded-md px-2 py-1 text-xs font-semibold text-(--accent) transition-colors hover:bg-(--accent-soft)"
+        >
+          {action.label}
+        </button>
+      )}
       <button
         type="button"
         onClick={onDismiss}
         aria-label="Cerrar aviso"
-        className="ml-2 text-(--text-muted) transition-colors hover:text-(--text)"
+        className="ml-1 text-(--text-muted) transition-colors hover:text-(--text)"
       >
         <X className="size-4" />
       </button>
