@@ -1,14 +1,17 @@
 import { Routes, Route, useLocation } from "react-router-dom"
 import { Sidebar } from "./components/layout/Sidebar"
 import { MoveNoteBar } from "./components/note/MoveNoteBar"
+import { usePurgeExpiredTrash } from "./hooks/usePurgeExpiredTrash"
 import { HomePage } from "./pages/HomePage"
 import { FolderPage } from "./pages/FolderPage"
 import { TagPage } from "./pages/TagPage"
 import { NotePage } from "./pages/NotePage"
+import { TrashPage } from "./pages/TrashPage"
 import { BackupPage } from "./pages/BackupPage"
 
 export default function App() {
   const location = useLocation()
+  usePurgeExpiredTrash()
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-(--surface) text-(--text)">
@@ -22,6 +25,7 @@ export default function App() {
             <Route path="/tags" element={<TagPage />} />
             <Route path="/tags/:tagId" element={<TagPage />} />
             <Route path="/note/:noteId" element={<NotePage />} />
+            <Route path="/trash" element={<TrashPage />} />
             <Route path="/backup" element={<BackupPage />} />
           </Routes>
         </div>

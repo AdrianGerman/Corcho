@@ -9,6 +9,7 @@ import {
   Plus,
   Search,
   Tag,
+  Trash2,
 } from "lucide-react"
 import { useGlobalShortcut } from "../../hooks/useGlobalShortcut"
 import { useSidebarCollapsed } from "../../hooks/useSidebarCollapsed"
@@ -23,6 +24,11 @@ const navItems = [
   { to: "/", label: "General", icon: House, end: true },
   { to: "/folders", label: "Carpetas", icon: Folder },
   { to: "/tags", label: "Tags", icon: Tag },
+]
+
+const utilityItems = [
+  { to: "/trash", label: "Papelera", icon: Trash2 },
+  { to: "/backup", label: "Respaldo", icon: DatabaseBackup },
 ]
 
 export function Sidebar() {
@@ -67,12 +73,9 @@ export function Sidebar() {
         </nav>
 
         <div className="mt-auto flex flex-col gap-1">
-          <SidebarLink
-            to="/backup"
-            label="Respaldo"
-            icon={DatabaseBackup}
-            collapsed={collapsed}
-          />
+          {utilityItems.map((item) => (
+            <SidebarLink key={item.to} collapsed={collapsed} {...item} />
+          ))}
           <ThemeToggle collapsed={collapsed} />
           <SidebarButton
             icon={collapsed ? PanelLeftOpen : PanelLeftClose}
