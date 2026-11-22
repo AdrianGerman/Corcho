@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { renameNote } from "../../lib/notes"
-import { moveNoteToTrash } from "../../lib/trash"
+import { moveNoteToTrash, restoreNoteFromTrash } from "../../lib/trash"
 import { useToast } from "../../hooks/useToast"
 import { Button } from "../ui/Button"
 import { EditableTitle } from "../ui/EditableTitle"
@@ -16,7 +16,13 @@ export function NoteHeader({ noteId, name }: NoteHeaderProps) {
 
   async function handleDelete() {
     await moveNoteToTrash(noteId)
-    showToast("Nota movida a la papelera", "danger")
+    showToast("Nota movida a la papelera", "danger", {
+      label: "Deshacer",
+      onClick: async () => {
+        await restoreNoteFromTrash(noteId)
+        showToast("Nota restaurada")
+      },
+    })
     navigate("/")
   }
 
