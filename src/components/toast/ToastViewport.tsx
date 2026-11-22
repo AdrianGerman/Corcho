@@ -14,6 +14,7 @@ export function ToastViewport({ toasts, onDismiss }: ToastViewportProps) {
           key={toast.id}
           message={toast.message}
           tone={toast.tone}
+          action={toast.action}
           onDismiss={() => onDismiss(toast.id)}
         />
       ))}
