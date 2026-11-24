@@ -18,6 +18,9 @@ export class CorchoDatabase extends Dexie {
     this.version(2).stores({
       trash: 'id, deletedAt',
     })
+    this.version(3).stores({
+      notes: 'id, type, folderId, name, updatedAt, pinnedAt, *tagIds',
+    })
   }
 }
 

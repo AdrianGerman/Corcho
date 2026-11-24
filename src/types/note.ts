@@ -33,6 +33,7 @@ interface NoteBase {
   tagIds: string[]
   createdAt: number
   updatedAt: number
+  pinnedAt?: number
 }
 
 export interface CanvasNote extends NoteBase {
